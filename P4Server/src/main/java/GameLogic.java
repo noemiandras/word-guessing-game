@@ -7,20 +7,31 @@ public class GameLogic {
 	private ArrayList<String> category2;
 	private ArrayList<String> category3;
 	private ArrayList<Character> lettersPlayed;
+	private ArrayList<String> wordsPlayed;
 	String currentWord;
 	int currentCategory;
 	int numLoss;
 	int countLetter;
 	
+	/*
+	 * Getters and setters
+	 */
+	public void setWordsPlayed(String word) {
+		wordsPlayed.add(word);
+	}
 	
 	public GameLogic(){
 		category1 = new ArrayList<String>();
 		category2 = new ArrayList<String>();
 		category3 = new ArrayList<String>();
 		lettersPlayed = new ArrayList<Character>();
+		wordsPlayed = new ArrayList<String>();
 		
 		numLoss = 6;
 		countLetter = 0;
+		
+		currentWord = "";
+		currentCategory = 0;
 	}
 	
 	/*
@@ -51,6 +62,23 @@ public class GameLogic {
 		return pos;
 	}
 	
+	
+	/*
+	 * Method: helper function for pickWord()
+	 * Test: passed 
+	 */
+	public boolean isInList() {
+		
+		//check if selected word is in the wordplayed list
+		for(int i = 0; i < wordsPlayed.size(); i++) {
+			if (currentWord.equals(wordsPlayed.get(i))){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	/* 
 	 * Method: takes in category number and assigns a word picked
 	 * 		!!! method doesn't check previous words selected 
@@ -69,15 +97,28 @@ public class GameLogic {
 		}
 		else if (category == 3) {
 			currentWord = category3.get(rand.nextInt(category3.size()));
+
 		}
 		
+		//check to see if picked currentWord is in the already picked word list
+		if(isInList()) {
+			pickWord(category);
+		}
+		else {
+			wordsPlayed.add(currentWord);
+		}
 	}
 	
 	/*
 	 * Method: resets all variables to be ready for a new word round
 	 */
 	public void reset() {
+		currentCategory = 0;
+		numLoss = 6;
+		countLetter = 0;
 		
+		lettersPlayed.clear();
+		currentWord = "";
 	}
 	
 	/*
@@ -85,6 +126,9 @@ public class GameLogic {
 	 */
 	public boolean evaluatePlayerWon() {
 		//if countletter is the same as the length of the word - true
+		if(countLetter == currentWord.length()) {
+			return true;
+		}
 		return false;
 	}
 	

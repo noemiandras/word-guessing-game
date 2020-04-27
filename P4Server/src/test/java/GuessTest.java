@@ -50,5 +50,15 @@ class GuessTest {
 		assertEquals(2, index.size(), "Number of times 'l' appears in 'hello' was counted incorrectly");
 
 	}
+	
+	@Test
+	void isWordInList() {
+		logic.setWordsPlayed("hi");
+		logic.setWordsPlayed("hello");
+		
+		logic.currentWord = "hello";
+		
+		assertTrue(logic.isInList(), "the word 'hello' is not in the wordsPlayed Arraylist");
+	}
 
 }
