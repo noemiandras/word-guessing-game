@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class WordInfo implements Serializable {
 
@@ -6,19 +7,19 @@ public class WordInfo implements Serializable {
 	
 	int clientNum;
 	
-	String category;
+	int category;
 	char letterGuess;
 	int lengthOfWord;
 	boolean charInWord;
-	int letterPos;
+	ArrayList<Integer> letterPositions;
     int numGuesses;
 	
     WordInfo() {
-    	category = "";
+    	category = -1;
     	letterGuess = ' ';
-    	lengthOfWord = 0;
+    	lengthOfWord = -1;
     	charInWord = false;
-    	letterPos = 0;
+    	letterPositions = new ArrayList<Integer>();
         numGuesses = 0;
     }
     
