@@ -12,6 +12,14 @@ public class WordInfo implements Serializable {
 	boolean charInWord;
 	int letterPos;
     int numGuesses;
-
 	
+    WordInfo() {
+    	category = "";
+    	letterGuess = ' ';
+    	lengthOfWord = 0;
+    	charInWord = false;
+    	letterPos = 0;
+        numGuesses = 0;
+    }
+    
 }
