@@ -69,9 +69,13 @@ public class Server{
 		ObjectInputStream in;
 		ObjectOutputStream out;
 		
+		//logic that is handled for the client
+		private GameLogic logic;
+		
 		ClientThread(Socket s, int count){
 			this.connection = s;
 			this.count = count;	
+			logic = new GameLogic();
 		}
 		
 		/*
@@ -85,6 +89,14 @@ public class Server{
 			}
 		}
 		*/
+		
+		private void startNewWord() {
+			
+		}
+		
+		private void continueWord(char letter) {
+			
+		}
 		
 		public void run(){
 				
@@ -100,10 +112,20 @@ public class Server{
 			//this is where game logic should be handled 
 			 while(true) {
 				    try {
-				    	//modify to taking in serializable object
-				    	String data = in.readObject().toString();
+				    	WordInfo data = (WordInfo) in.readObject();
 				    	
+				    	//print message sent by the client
+				    	callback.accept("Client " + count + " message: " + data.message);
+				    	
+				    	//divide reading data into cases:
+				    	if(data.category == -1) {
+				    		//this means the client is sending a letter to a continuing word
 				    	}
+				    	else {
+				    		//client chose a new category
+				    	}
+				    	
+				    }
 					
 				    catch(Exception e) {
 				    	callback.accept("OOOOPPs...Something wrong with the socket from client: " + count + "....closing down!");

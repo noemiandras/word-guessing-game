@@ -3,9 +3,9 @@ import java.util.Random;
 
 public class GameLogic {
 	
-	private ArrayList<String> category1;
-	private ArrayList<String> category2;
-	private ArrayList<String> category3;
+	private ArrayList<String> category1; //beach
+	private ArrayList<String> category2; //iceCream
+	private ArrayList<String> category3; //sports
 	private ArrayList<Character> lettersPlayed;
 	private ArrayList<String> wordsPlayed;
 	String currentWord;
@@ -20,12 +20,20 @@ public class GameLogic {
 		wordsPlayed.add(word);
 	}
 	
+	/*
+	 * CONSTRUCTOR
+	 */
 	public GameLogic(){
 		category1 = new ArrayList<String>();
 		category2 = new ArrayList<String>();
 		category3 = new ArrayList<String>();
 		lettersPlayed = new ArrayList<Character>();
 		wordsPlayed = new ArrayList<String>();
+		
+		//initialize category list
+		addCategory1_beach();
+		addCategory2_iceCream();
+		addCategory3_sports();
 		
 		numLoss = 6;
 		countLetter = 0;
@@ -63,26 +71,9 @@ public class GameLogic {
 	}
 	
 	
-	/*
-	 * Method: helper function for pickWord()
-	 * Test: passed 
-	 */
-	public boolean isInList() {
-		
-		//check if selected word is in the wordplayed list
-		for(int i = 0; i < wordsPlayed.size(); i++) {
-			if (currentWord.equals(wordsPlayed.get(i))){
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
 	/* 
 	 * Method: takes in category number and assigns a word picked
-	 * 		!!! method doesn't check previous words selected 
-	 * Test: needs to be tested based on what categories we pick
+	 * Test: passed
 	 */
 	public void pickWord(int category) {
 		currentCategory = category;
@@ -101,7 +92,7 @@ public class GameLogic {
 		}
 		
 		//check to see if picked currentWord is in the already picked word list
-		if(isInList()) {
+		if(wordsPlayed.contains(currentWord)) {
 			pickWord(category);
 		}
 		else {
@@ -119,6 +110,8 @@ public class GameLogic {
 		
 		lettersPlayed.clear();
 		currentWord = "";
+		
+		wordsPlayed.clear();
 	}
 	
 	/*
@@ -131,6 +124,67 @@ public class GameLogic {
 		}
 		return false;
 	}
+	
+	/*
+	 * Private methods that assign data to each category
+	 */
+	private void addCategory1_beach() {
+		category1.add("tanning");
+		category1.add("surfing");
+		category1.add("sand");
+		category1.add("ocean");
+		category1.add("sea");
+		category1.add("seashell");
+		category1.add("sun");
+		category1.add("sunscreen");
+		category1.add("umbrella");
+		category1.add("bikini");
+		category1.add("wave");
+		category1.add("seaweed");
+		category1.add("crabs");
+		category1.add("dolphin");
+	}
+	
+	/*
+	 * Private methods that assign data to each category
+	 */
+	private void addCategory2_iceCream() {
+		category2.add("coconut");
+		category2.add("chocolate");
+		category2.add("vanilla");
+		category2.add("strawberry");
+		category2.add("caramel");
+		category2.add("coffee");
+		category2.add("oreo");
+		category2.add("pistachio");
+		category2.add("mint");
+		category2.add("banana");
+		category2.add("mango");
+		category2.add("raspberry");
+		category2.add("cookie");
+		category2.add("matcha");
+	}
+	
+	/*
+	 * Private methods that assign data to each category
+	 */
+	private void addCategory3_sports() {
+		category3.add("soccer");
+		category3.add("tennis");
+		category3.add("basketball");
+		category3.add("golf");
+		category3.add("swimming");
+		category3.add("diving");
+		category3.add("cycling");
+		category3.add("football");
+		category3.add("running");
+		category3.add("badminton");
+		category3.add("baseball");
+		category3.add("kayaking");
+		category3.add("fishing");
+		category3.add("canoeing");
+	}
+	
 	
 
 }

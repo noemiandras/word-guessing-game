@@ -14,10 +14,33 @@ class GuessTest {
 
 	String word;
 	GameLogic logic;
+	ArrayList<String> iceCream; 
+	
+	/*
+	 * Private methods that assign data to each category
+	 */
+	private void addCategory2_iceCream() {
+		iceCream.add("coconut");
+		iceCream.add("chocolate");
+		iceCream.add("vanilla");
+		iceCream.add("strawberry");
+		iceCream.add("caramel");
+		iceCream.add("coffee");
+		iceCream.add("oreo");
+		iceCream.add("pistachio");
+		iceCream.add("mint");
+		iceCream.add("banana");
+		iceCream.add("mango");
+		iceCream.add("raspberry");
+		iceCream.add("cookie");
+		iceCream.add("matcha");
+	}
 	
 	@BeforeEach
 	void init() {
 		logic = new GameLogic();
+		iceCream = new ArrayList<String>();
+		addCategory2_iceCream();
 	}
 	
 	@Test
@@ -52,13 +75,38 @@ class GuessTest {
 	}
 	
 	@Test
-	void isWordInList() {
-		logic.setWordsPlayed("hi");
-		logic.setWordsPlayed("hello");
+	void pickIceCreamWord() {
 		
-		logic.currentWord = "hello";
+		//pick word from ice cream category which is category 2
+		logic.pickWord(2);
 		
-		assertTrue(logic.isInList(), "the word 'hello' is not in the wordsPlayed Arraylist");
+		assertTrue(iceCream.contains(logic.currentWord), "word was not picked from the ice cream category");
 	}
+	
+	@Test
+	void pickIceCreamDuplicateWordCoconut() {
+		
+		//assign words to the wordsPlayed list without one word
+		logic.setWordsPlayed("chocolate");
+		logic.setWordsPlayed("vanilla");
+		logic.setWordsPlayed("strawberry");
+		logic.setWordsPlayed("caramel");
+		logic.setWordsPlayed("coffee");
+		logic.setWordsPlayed("oreo");
+		logic.setWordsPlayed("pistachio");
+		logic.setWordsPlayed("mint");
+		logic.setWordsPlayed("banana");
+		logic.setWordsPlayed("mango");
+		logic.setWordsPlayed("raspberry");
+		logic.setWordsPlayed("cookie");
+		logic.setWordsPlayed("matcha");
+		
+		//word left should be coconut
+		logic.pickWord(2);
+		
+		assertEquals("coconut", logic.currentWord, "word left to pick is not coconut");	
+	}
+	
+	
 
 }
