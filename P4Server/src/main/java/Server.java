@@ -3,6 +3,7 @@
  * DESCRIPTION: this file handles all the server and separate client threads 
  */
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -69,8 +70,9 @@ public class Server{
 		ObjectInputStream in;
 		ObjectOutputStream out;
 		
-		//logic that is handled for the client
+		//Game information for the specific client
 		private GameLogic logic;
+		WordInfo info;
 		
 		ClientThread(Socket s, int count){
 			this.connection = s;
@@ -90,12 +92,51 @@ public class Server{
 		}
 		*/
 		
-		private void startNewWord() {
+		/*
+		 * Method: takes care of scenario when new category is indicated
+		 * 			including clearing previous information, choosing word
+		 * 			and sending letter number information 
+		 * Test: not tested yet if it works
+		 */
+		private void startNewWord(int category) {
 			
+			logic.reset();
+			logic.pickWord(category);
+			
+			info = new WordInfo();
+			info.lengthOfWord = logic.getNumLettersInWord(); //or do logic.currentWord.length()
+			info.numGuesses = logic.numLoss; //number of attempts = 6
+			info.message = "There are " + logic.getNumLettersInWord() + " letters in word.";
+			send(info);
 		}
 		
+		
+		/*
+		 * Method: evaluates if letter is in word 
+		 * 			sends back list of letter positions
+		 * 			sends back if player won round 
+		 * 			sends number of attempts left
+		 * Test: not tested yet if it works 
+		 */
 		private void continueWord(char letter) {
 			
+			ArrayList<Integer> position = logic.getPosition(letter);
+			
+			info = new WordInfo();
+			
+			if(position.isEmpty()) { 
+				info.charInWord = false;
+				info.message = "Letter '" + letter + "' is not in the word";
+			}
+			else { 
+				info.charInWord = true;
+				info.message = "Letter '" + letter + "' is in the word";
+			}
+			
+			info.letterPositions = position;
+			info.numGuesses = logic.numLoss;
+			
+			send(info);
 		}
 		
 		public void run(){
@@ -120,9 +161,11 @@ public class Server{
 				    	//divide reading data into cases:
 				    	if(data.category == -1) {
 				    		//this means the client is sending a letter to a continuing word
+				    		continueWord(data.letterGuess);
 				    	}
 				    	else {
 				    		//client chose a new category
+				    		startNewWord(data.category);
 				    	}
 				    	
 				    }
@@ -134,6 +177,16 @@ public class Server{
 				    }
 				}
 			}
+		
+		public void send(WordInfo data) {
+			
+			try {
+				out.writeObject(data);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		
 	}

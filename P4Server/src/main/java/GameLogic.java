@@ -62,7 +62,7 @@ public class GameLogic {
 		   i = currentWord.indexOf(letter, i) + 1;
 		}
 		
-		//letter is not in the 
+		//letter is not in the word
 		if( i == 0) {
 			numLoss--;
 		}
@@ -98,6 +98,14 @@ public class GameLogic {
 		else {
 			wordsPlayed.add(currentWord);
 		}
+	}
+	
+	
+	/*
+	 * method: returns number of letters in the word
+	 */
+	public int getNumLettersInWord() {
+		return currentWord.length();
 	}
 	
 	/*
