@@ -191,6 +191,21 @@ public class WordGuessClient extends Application {
 		outdoorSports = new Button("Outdoor Sports");
 		outdoorSports.setFont(Font.font("DJB Scruffy Angel", 20));
 		outdoorSports.setStyle("-fx-text-fill: purple");
+		
+		
+		//NOEMI --------------
+		iceCreamFlavors.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				
+				//sends category request to server
+				WordInfo info = new WordInfo();
+				info.category = 2;
+				info.message = "Ice Cream Category picked!";
+				clientConnection.send(info);
+			}
+		});
+		//---------------------
 
 		//HBox box2 = new HBox(generalCategory, beachActivities, beachActivitiesHeart1, beachActivitiesHeart2, beachActivitiesHeart3,
 							 //iceCreamFlavors, iceCreamFlavorsHeart1, iceCreamFlavorsHeart2, iceCreamFlavorsHeart3, 
