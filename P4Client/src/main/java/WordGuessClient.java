@@ -135,7 +135,6 @@ public class WordGuessClient extends Application {
 					clientIP = ipText.getText();
 					ipText.setDisable(true);
 					portText.setDisable(false);
-					startButton.setDisable(false);
 					System.out.println("IP Address: " + clientIP);
 				}
 			}
