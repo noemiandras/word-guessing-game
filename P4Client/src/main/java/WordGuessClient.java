@@ -54,7 +54,7 @@ public class WordGuessClient extends Application {
 	Client clientConnection;
 	GameLogicClient gameData;
 	
-	ListView<String> gameState;
+	ListView<String> gameMessages;
 
 	String clientIP;
 	int clientPort;
@@ -101,7 +101,7 @@ public class WordGuessClient extends Application {
 		bgSound.play();
 		
 		gameData = new GameLogicClient();
-		gameState = new ListView<String>();
+		gameMessages = new ListView<String>();
 
 		welcomeLabel = new Label("Welcome to Word Guess!");
 		welcomeLabel.setFont(Font.font("Courier", 50));
@@ -207,9 +207,6 @@ public class WordGuessClient extends Application {
 		});
 		//---------------------
 
-		//HBox box2 = new HBox(generalCategory, beachActivities, beachActivitiesHeart1, beachActivitiesHeart2, beachActivitiesHeart3,
-							 //iceCreamFlavors, iceCreamFlavorsHeart1, iceCreamFlavorsHeart2, iceCreamFlavorsHeart3, 
-							 //outdoorSports, outdoorSportsHeart1, outdoorSportsHeart2, outdoorSportsHeart3);
 		
 		HBox box2 = new HBox(generalCategory, beachActivities, beachActivitiesHeart1, beachActivitiesHeart2, beachActivitiesHeart3,
 				iceCreamFlavors, iceCreamFlavorsHeart1, iceCreamFlavorsHeart2, iceCreamFlavorsHeart3,
@@ -242,15 +239,15 @@ public class WordGuessClient extends Application {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				/*
+				
 				clientConnection = new Client(data->{
 					  Platform.runLater(()->{
-						  gameState.getItems().add(data.toString());
+						  gameMessages.getItems().add(data.toString());
 					  });
 				  }, clientPort, clientIP);
 				
 				clientConnection.start();
-				*/
+				
 				
 				primaryStage.setTitle("(Client) Make your Selection!");
 				primaryStage.setScene(scene2);

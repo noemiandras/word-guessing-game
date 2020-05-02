@@ -49,7 +49,7 @@ public class WordGuessServer extends Application {
 		textField = new TextField();
 		listItems = new ListView<String>(); //for debugging purposes in this scene
 		
-		text1.setText("Welcome to the Game of Morra!");
+		text1.setText("Welcome to Word Guess!");
 		text2.setText("Please enter port number in between 5000 and 6000 to start:");
 		
 		hBoxStartServer = new HBox(textField, bStartServer );
