@@ -77,6 +77,18 @@ public class WordGuessClient extends Application {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("(Client) Word Guess!!!");
 
+		ImageView beachActivitiesHeart1 = new ImageView(new Image("heartSmall.png"));
+		ImageView beachActivitiesHeart2 = new ImageView(new Image("heartSmall.png"));
+		ImageView beachActivitiesHeart3 = new ImageView(new Image("heartSmall.png"));
+		
+		ImageView iceCreamFlavorsHeart1 = new ImageView(new Image("heartSmall.png"));
+		ImageView iceCreamFlavorsHeart2 = new ImageView(new Image("heartSmall.png"));
+		ImageView iceCreamFlavorsHeart3 = new ImageView(new Image("heartSmall.png"));
+		
+		ImageView outdoorSportsHeart1 = new ImageView(new Image("heartSmall.png"));
+		ImageView outdoorSportsHeart2 = new ImageView(new Image("heartSmall.png"));
+		ImageView outdoorSportsHeart3 = new ImageView(new Image("heartSmall.png"));
+		
 		Image bgimage = new Image("background.jpg");
 		BackgroundImage backgroundimage = new BackgroundImage(bgimage,
 				BackgroundRepeat.NO_REPEAT,
@@ -180,11 +192,30 @@ public class WordGuessClient extends Application {
 		outdoorSports.setFont(Font.font("DJB Scruffy Angel", 20));
 		outdoorSports.setStyle("-fx-text-fill: purple");
 
-		HBox box2 = new HBox(generalCategory, beachActivities, iceCreamFlavors, outdoorSports);
+		//HBox box2 = new HBox(generalCategory, beachActivities, beachActivitiesHeart1, beachActivitiesHeart2, beachActivitiesHeart3,
+							 //iceCreamFlavors, iceCreamFlavorsHeart1, iceCreamFlavorsHeart2, iceCreamFlavorsHeart3, 
+							 //outdoorSports, outdoorSportsHeart1, outdoorSportsHeart2, outdoorSportsHeart3);
+		
+		HBox box2 = new HBox(generalCategory, beachActivities, beachActivitiesHeart1, beachActivitiesHeart2, beachActivitiesHeart3,
+				iceCreamFlavors, iceCreamFlavorsHeart1, iceCreamFlavorsHeart2, iceCreamFlavorsHeart3,
+				outdoorSports, outdoorSportsHeart1, outdoorSportsHeart2, outdoorSportsHeart3);
+		
 		box2.setMargin(generalCategory, new Insets(100, 10, 10, 250));
+		
 		box2.setMargin(beachActivities, new Insets(200, 10, 10, -400));
-		box2.setMargin(iceCreamFlavors, new Insets(346, 10, 10, -10));
-		box2.setMargin(outdoorSports, new Insets(500, 10, 10, -10));
+		box2.setMargin(beachActivitiesHeart1, new Insets(250, 0, 10, -180));
+		box2.setMargin(beachActivitiesHeart2, new Insets(250, 5, 10, 10));
+		box2.setMargin(beachActivitiesHeart3, new Insets(250, 10, 10, 10));
+		
+		box2.setMargin(iceCreamFlavors, new Insets(346, 10, 10, -2));
+		box2.setMargin(iceCreamFlavorsHeart1, new Insets(396, 0, 10, -180));
+		box2.setMargin(iceCreamFlavorsHeart2, new Insets(396, 5, 10, 10));
+		box2.setMargin(iceCreamFlavorsHeart3, new Insets(396, 10, 10, 10));
+		
+		box2.setMargin(outdoorSports, new Insets(500, 10, 10, -4));
+		box2.setMargin(outdoorSportsHeart1, new Insets(550, 0, 10, -180));
+		box2.setMargin(outdoorSportsHeart2, new Insets(550, 5, 10, 10));
+		box2.setMargin(outdoorSportsHeart3, new Insets(550, 10, 10, 10));
 
 		mainBox2 = new HBox(box2);
 		mainBox2.setBackground(background);
@@ -196,7 +227,7 @@ public class WordGuessClient extends Application {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
+				/*
 				clientConnection = new Client(data->{
 					  Platform.runLater(()->{
 						  gameState.getItems().add(data.toString());
@@ -204,6 +235,7 @@ public class WordGuessClient extends Application {
 				  }, clientPort, clientIP);
 				
 				clientConnection.start();
+				*/
 				
 				primaryStage.setTitle("(Client) Make your Selection!");
 				primaryStage.setScene(scene2);
