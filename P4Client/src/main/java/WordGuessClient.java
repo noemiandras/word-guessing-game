@@ -191,8 +191,36 @@ public class WordGuessClient extends Application {
 		outdoorSports.setFont(Font.font("DJB Scruffy Angel", 20));
 		outdoorSports.setStyle("-fx-text-fill: purple");
 		
+		beachActivities.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				
+				//sends category request to server
+				WordInfo info = new WordInfo();
+				info.category = 1;
+				info.message = "Beach Activities Category picked!";
+				clientConnection.send(info);
+				
+				gameData.category1WordAttempts++;
+				
+				if (gameData.category1WordAttempts == 1) {
+					beachActivitiesHeart3.setVisible(false);
+				}
+				else if (gameData.category1WordAttempts == 2) {
+					beachActivitiesHeart2.setVisible(false);
+				}
+				else
+				{
+					beachActivitiesHeart1.setVisible(false);
+					if (gameData.category1WordsCorrect == 0) {
+						//-------display lost game message since used all lives and didn't get correct-----------
+					}
+				}
+				
+				//--------change to scene 3------
+			}
+		});
 		
-		//NOEMI --------------
 		iceCreamFlavors.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -202,10 +230,57 @@ public class WordGuessClient extends Application {
 				info.category = 2;
 				info.message = "Ice Cream Category picked!";
 				clientConnection.send(info);
+				
+				gameData.category2WordAttempts++;
+				
+				if (gameData.category2WordAttempts == 1) {
+					iceCreamFlavorsHeart3.setVisible(false);
+				}
+				else if (gameData.category2WordAttempts == 2) {
+					iceCreamFlavorsHeart2.setVisible(false);
+				}
+				else
+				{
+					iceCreamFlavorsHeart1.setVisible(false);
+					if (gameData.category2WordsCorrect == 0) {
+						//-------display lost game message since used all lives and didn't get correct-----------
+					}
+				}
+				
+				//--------change to scene 3------
 			}
 		});
-		//---------------------
 
+		outdoorSports.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				
+				//sends category request to server
+				WordInfo info = new WordInfo();
+				info.category = 3;
+				info.message = "Sports Category picked!";
+				clientConnection.send(info);
+				
+				gameData.category3WordAttempts++;
+				
+				if (gameData.category3WordAttempts == 1) {
+					outdoorSportsHeart3.setVisible(false);
+				}
+				else if (gameData.category3WordAttempts == 2) {
+					outdoorSportsHeart2.setVisible(false);
+				}
+				else
+				{
+					outdoorSportsHeart1.setVisible(false);
+					if (gameData.category3WordsCorrect == 0) {
+						//-------display lost game message since used all lives and didn't get correct-----------
+					}
+				}
+				
+				//--------change to scene 3------
+			}
+		});
+		
 		
 		HBox box2 = new HBox(generalCategory, beachActivities, beachActivitiesHeart1, beachActivitiesHeart2, beachActivitiesHeart3,
 				iceCreamFlavors, iceCreamFlavorsHeart1, iceCreamFlavorsHeart2, iceCreamFlavorsHeart3,
