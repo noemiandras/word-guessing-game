@@ -48,9 +48,20 @@ class GuessTest {
 		word = "cat";
 		logic.currentWord = word;
 		
-		ArrayList<Integer> index = logic.getPosition('c');
+		ArrayList<Integer> index = logic.getPosition('a');
 		
-		assertEquals(0, index.get(0), "word letter position 'c' in 'cat' evaluated incorrectly");	
+		assertEquals(1, index.get(0), "word letter position 'a' in 'cat' evaluated incorrectly");	
+	}
+	
+	@Test
+	void letterTwiceInWord() {
+		word = "catan";
+		logic.currentWord = word;
+		
+		ArrayList<Integer> index = logic.getPosition('a');
+		//indeces 1 and 3
+		
+		assertEquals(3, index.get(1), "second word letter position 'a' in 'catan' evaluated incorrectly");	
 	}
 	
 	@Test

@@ -55,11 +55,17 @@ public class GameLogic {
 				
 		int i = 0;
 		while(currentWord.indexOf(letter, i) != -1) {
+			
+			//get index that was evaluated 
+			i = currentWord.indexOf(letter, i);
+			
 			//add index where the letter is
 			pos.add(i);
 			countLetter++;
-			//increment index to search for the rest of letters 
-		   i = currentWord.indexOf(letter, i) + 1;
+			
+			//increment index
+			i++;
+			
 		}
 		
 		//letter is not in the word
@@ -111,14 +117,21 @@ public class GameLogic {
 	/*
 	 * Method: resets all variables to be ready for a new word round
 	 */
-	public void reset() {
+	public void resetRound() {
 		currentCategory = 0;
 		numLoss = 6;
 		countLetter = 0;
 		
 		lettersPlayed.clear();
 		currentWord = "";
-		
+	}
+	
+	/*
+	 * Method: resets logic class entirely
+	 *        NEEDED ONLY IF GAMELOGIC INSTANCE IS KEPT THE SAME IN SERVER CLASS
+	 */
+	public void resetGame() {
+		resetRound();
 		wordsPlayed.clear();
 	}
 	
