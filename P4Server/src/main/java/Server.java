@@ -140,12 +140,6 @@ public class Server{
 			send(info);
 		}
 		
-		/*
-		 * Method: starts new game with all variables reset
-		 */
-		public void startNewGame() {
-			//logic = new GameLogic();
-		}
 		
 		public void run(){
 				
@@ -167,7 +161,10 @@ public class Server{
 				    	callback.accept("Client " + count + " message: " + data.message);
 				    	
 				    	//divide reading data into cases:
-				    	if(data.category == -1) {
+				    	if(data.startNewGame == true) { //start new game
+				    		logic = new GameLogic();
+				    	}
+				    	else if(data.category == -1) {
 				    		//this means the client is sending a letter to a continuing word
 				    		continueWord(data.letterGuess);
 				    	}
