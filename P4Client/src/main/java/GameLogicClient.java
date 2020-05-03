@@ -28,7 +28,9 @@ public class GameLogicClient {
 	}
 	
 	public boolean didLose() {
-		if (category1WordAttempts > 3 || category2WordAttempts > 3 || category3WordAttempts > 3) 
+		if ( (category1WordAttempts >= 3 && category1WordsCorrect == 0) || 
+			 (category2WordAttempts >= 3 && category2WordsCorrect == 0) || 
+			 (category3WordAttempts >= 3 && category3WordsCorrect == 0) ) 
 			return true;
 		else
 			return false;

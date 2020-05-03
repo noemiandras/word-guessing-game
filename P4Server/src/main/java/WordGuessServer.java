@@ -56,8 +56,12 @@ public class WordGuessServer extends Application {
 		listItems = new ListView<String>(); //for debugging purposes in this scene
 		sceneMap.put("GameScene", CreateGameScene(primaryStage, listItems));
 		
+<<<<<<< HEAD
 		text1.setText("Welcome to Word Guess Game!");
 		text1.setStyle("-fx-font: 18px 'Times New Roman';" + "-fx-font-weight: bold;");
+=======
+		text1.setText("Welcome to Word Guess!");
+>>>>>>> 734c04cd3828fc3d12470ebd59210fa3da8ba2bd
 		text2.setText("Please enter port number in between 5000 and 6000 to start:");
 		text2.setStyle("-fx-font: 18px 'Times New Roman';" + "-fx-font-weight: bold;");
 		

@@ -99,7 +99,7 @@ public class Server{
 		 * Test: not tested yet if it works
 		 */
 		private void startNewWord(int category) {
-			
+						
 			logic.reset();
 			logic.pickWord(category);
 			
@@ -119,7 +119,7 @@ public class Server{
 		 * Test: not tested yet if it works 
 		 */
 		private void continueWord(char letter) {
-			
+						
 			ArrayList<Integer> position = logic.getPosition(letter);
 			
 			info = new WordInfo();
@@ -164,6 +164,7 @@ public class Server{
 				    		continueWord(data.letterGuess);
 				    	}
 				    	else {
+				    		
 				    		//client chose a new category
 				    		startNewWord(data.category);
 				    	}

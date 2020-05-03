@@ -20,6 +20,8 @@ public class Client extends Thread{
 	int portNum;
 	String ipAddr;
 	
+	WordInfo gameState = new WordInfo();
+	
 	Client(Consumer<Serializable> call, int portNum, String ipAddr){
 	
 		callback = call;
@@ -30,18 +32,18 @@ public class Client extends Thread{
 	public void run() {
 		
 		try {
-		socketClient= new Socket(ipAddr,portNum);
-	    out = new ObjectOutputStream(socketClient.getOutputStream());
-	    in = new ObjectInputStream(socketClient.getInputStream());
-	    socketClient.setTcpNoDelay(true);
+			socketClient= new Socket(ipAddr,portNum);
+		    out = new ObjectOutputStream(socketClient.getOutputStream());
+		    in = new ObjectInputStream(socketClient.getInputStream());
+		    socketClient.setTcpNoDelay(true);
 		}
 		catch(Exception e) {}
 		
 		while(true) {
 			 
 			try {
-			String message = in.readObject().toString();
-			callback.accept(message);
+				gameState = (WordInfo)in.readObject();
+				callback.accept(gameState.message);
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -50,7 +52,7 @@ public class Client extends Thread{
 	
     }
 	
-	public void send(String data) {
+	public void send(WordInfo data) {
 		
 		try {
 			out.writeObject(data);
