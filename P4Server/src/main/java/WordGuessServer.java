@@ -9,15 +9,19 @@
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.util.HashMap;
 
 public class WordGuessServer extends Application {
 
@@ -31,6 +35,7 @@ public class WordGuessServer extends Application {
 	//server-client-socket related objects
 	Server serverConnection;
 	ListView<String> listItems; //this is where all the string server-client communication will happen
+	HashMap<String, Scene> sceneMap = new HashMap<>();
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -41,26 +46,31 @@ public class WordGuessServer extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		primaryStage.setTitle("(server) Playing word guess!!!");
+		primaryStage.setTitle("Word Guess Start Server");
 		
 		bStartServer = new Button("Start Server");
+		bStartServer.setStyle("-fx-font: 14px 'Times New Roman'");
 		text1 = new Text();
 		text2 = new Text();
 		textField = new TextField();
 		listItems = new ListView<String>(); //for debugging purposes in this scene
+		sceneMap.put("GameScene", CreateGameScene(primaryStage, listItems));
 		
-		text1.setText("Welcome to the Game of Morra!");
+		text1.setText("Welcome to Word Guess Game!");
+		text1.setStyle("-fx-font: 18px 'Times New Roman';" + "-fx-font-weight: bold;");
 		text2.setText("Please enter port number in between 5000 and 6000 to start:");
+		text2.setStyle("-fx-font: 18px 'Times New Roman';" + "-fx-font-weight: bold;");
 		
 		hBoxStartServer = new HBox(textField, bStartServer );
-		vBoxMenu = new VBox(20, text1, text2, hBoxStartServer, listItems);
+		vBoxMenu = new VBox(20, text1, text2, hBoxStartServer);// , listItems);
+		vBoxMenu.setStyle("-fx-padding: 60;"+"-fx-background-color: #ffe57c;");
 		
 		//start server
 		this.bStartServer.setOnAction(e->{ int port = Integer.parseInt(textField.getText());
 											System.out.println(port);
 																				
 											serverConnection = new Server(port);
-											System.out.println("Serverconnection created");
+											System.out.println("ServerConnection created");
 											
 											//sets up callBack so that information is sent through runnable
 											serverConnection.setCallBack(data-> {
@@ -68,9 +78,13 @@ public class WordGuessServer extends Application {
 													listItems.getItems().add(data.toString());
 												});						  
 									});
+
+											primaryStage.setScene(sceneMap.get("GameScene"));
 		});
-		
+
+		//pane.setPadding(new Insets(70));
 		Scene scene = new Scene(vBoxMenu,600,600);
+		sceneMap.put("StartServer", scene);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
@@ -82,6 +96,37 @@ public class WordGuessServer extends Application {
                 System.exit(0);
             }
         });
+	}
+
+
+	public Scene CreateGameScene(Stage primaryStage, ListView listItems){
+		primaryStage.setTitle("Word Guess Server Screen");
+
+		Text stats = new Text("Client Statistics: ");
+		stats.setStyle("-fx-font: 14px 'Times New Roman'");
+		Text clientNumbers = new Text("Clients Connected: ");
+		clientNumbers.setStyle("-fx-font: 14px 'Times New Roman'");
+		//Text wins = new Text("Total wins: ");
+		//wins.setStyle("-fx-font: 14px 'Times New Roman'");
+		//Text losses = new Text("Total losses: ");
+		//losses.setStyle("-fx-font: 14px 'Times New Roman'");
+
+		BorderPane pane = new BorderPane();
+		pane.setPadding(new Insets(70));
+		pane.setStyle("-fx-font: 14px 'Times New Roman';" + "-fx-background-color: #ffe57c;");
+		//pane.setStyle("-fx-background-color: #ffe57c");
+
+		VBox Stats = new VBox(20, stats, clientNumbers);
+		Stats.setStyle("-fx-padding: 15;");
+
+		pane.setCenter(listItems);
+		pane.setRight(Stats);
+
+
+		pane.setPadding(new Insets(70));
+
+		return new Scene(pane, 500, 400);
+
 	}
 
 }
