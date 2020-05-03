@@ -1,4 +1,5 @@
 /*AUTHOR: Noemi Andras
+		  Ameesha Saxena
  * PROJECT: CS 342 Hangman
  * DESCRIPTION: This is the server side of the hangman project where all 
  * 				clients who are playing hangman are handled. 
