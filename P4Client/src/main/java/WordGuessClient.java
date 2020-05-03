@@ -60,6 +60,8 @@ public class WordGuessClient extends Application {
 	GameLogicClient gameData;
 	WordInfo info;
 	
+	int lengthOfWord = 0;
+	
 	ListView<String> gameMessages;
 
 	String clientIP;
@@ -81,15 +83,21 @@ public class WordGuessClient extends Application {
 	Button playAgain = new Button("Play Again");
 	Button quit = new Button("Quit");
 	
+	String blanks;
+	
 	Scene scene1;
 	Scene scene2;
 	Scene finalScene;
+	
+	boolean showScene2;
 
 	//feel free to remove the starter code from this method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("(Client) Word Guess!!!");
+		
+		showScene2 = false;
 
 		ImageView beachActivitiesHeart1 = new ImageView(new Image("heartSmall.png"));
 		ImageView beachActivitiesHeart2 = new ImageView(new Image("heartSmall.png"));
@@ -215,6 +223,8 @@ public class WordGuessClient extends Application {
 				info.message = "Beach Activities Category picked!";
 				clientConnection.send(info);
 				
+				lengthOfWord = info.lengthOfWord;
+				
 				gameData.category1WordAttempts++;
 				
 				if (gameData.category1WordAttempts == 1) {
@@ -244,6 +254,12 @@ public class WordGuessClient extends Application {
 					beachActivities.setStyle("-fx-background-color: green");
 					beachActivities.setDisable(true);
 				}
+				
+				if (showScene2) {
+					primaryStage.setTitle("(Client) Make your Selection!");
+					primaryStage.setScene(scene2);
+					primaryStage.show();
+				}
 			}
 		});
 		
@@ -256,6 +272,8 @@ public class WordGuessClient extends Application {
 				info.category = 2;
 				info.message = "Ice Cream Category picked!";
 				clientConnection.send(info);
+				
+				lengthOfWord = info.lengthOfWord;
 				
 				gameData.category2WordAttempts++;
 				
@@ -286,6 +304,12 @@ public class WordGuessClient extends Application {
 					iceCreamFlavors.setStyle("-fx-background-color: green");
 					iceCreamFlavors.setDisable(true);
 				}
+				
+				if (showScene2) {
+					primaryStage.setTitle("(Client) Make your Selection!");
+					primaryStage.setScene(scene2);
+					primaryStage.show();
+				}
 			}
 		});
 
@@ -298,6 +322,8 @@ public class WordGuessClient extends Application {
 				info.category = 3;
 				info.message = "Sports Category picked!";
 				clientConnection.send(info);
+				
+				lengthOfWord = info.lengthOfWord;
 				
 				gameData.category3WordAttempts++;
 				
@@ -327,6 +353,12 @@ public class WordGuessClient extends Application {
 				if (gameData.category3WordsCorrect == 1) {
 					outdoorSports.setStyle("-fx-background-color: green");
 					outdoorSports.setDisable(true);
+				}
+				
+				if (showScene2) {
+					primaryStage.setTitle("(Client) Make your Selection!");
+					primaryStage.setScene(scene2);
+					primaryStage.show();
 				}
 			}
 		});
@@ -400,6 +432,10 @@ public class WordGuessClient extends Application {
 				outdoorSportsHeart1.setVisible(true);
 				outdoorSportsHeart2.setVisible(true);
 				outdoorSportsHeart3.setVisible(true);
+				
+				info.message = "Starting a New Game";
+				info.startNewGame = true;
+				clientConnection.send(info);
 
 			}
 		});
@@ -463,6 +499,23 @@ public class WordGuessClient extends Application {
 	public Scene showScene3() {
 		// ------- SCENE 3 ------------------------------------------------------------------------------------------
 
+		Label numGuesses = new Label("Guesses: ");
+		numGuesses.setFont(Font.font("Courier", 20));
+
+		ImageView guessHeart1 = new ImageView(new Image("heartSmall.png"));
+		ImageView guessHeart2 = new ImageView(new Image("heartSmall.png"));
+		ImageView guessHeart3 = new ImageView(new Image("heartSmall.png"));
+		ImageView guessHeart4 = new ImageView(new Image("heartSmall.png"));
+		ImageView guessHeart5 = new ImageView(new Image("heartSmall.png"));
+		ImageView guessHeart6 = new ImageView(new Image("heartSmall.png"));
+
+		guessHeart6.setVisible(true);
+		guessHeart5.setVisible(true);
+		guessHeart4.setVisible(true);
+		guessHeart3.setVisible(true);
+		guessHeart2.setVisible(true);
+		guessHeart1.setVisible(true);
+
 		Rectangle rectangle3 = new Rectangle(900, 500);
 		rectangle3.setFill(Color.BEIGE);
 		rectangle3.setStroke(Color.ORANGE);
@@ -479,6 +532,10 @@ public class WordGuessClient extends Application {
 			clientCategory = "Outdoor Sports";
 		}
 
+		Button backButton = new Button("Back");
+		backButton.setFont(Font.font("Courier", 20));
+		backButton.setDisable(true);
+
 		Label categoryLabel = new Label("Category: ");
 		categoryLabel.setFont(Font.font("Courier", 20));
 
@@ -493,19 +550,175 @@ public class WordGuessClient extends Application {
 		Label guessLabel = new Label("Input your guess: ");
 		guessLabel.setFont(Font.font("Courier", 20));
 
-		TextField guess = new TextField("Enter your one-letter guess");
-		guess.setPrefWidth(400);
+		TextField guess = new TextField();
+		guess.setPrefWidth(100);
 		guess.setFont(Font.font("DJB Scruffy Angel", 20));
 
-		HBox blanks = new HBox(blanksRectangle);
+		Button guessSend = new Button("Send");
+		guessSend.setFont(Font.font("DJB Scruffy Angel", 20));
 
-		HBox box3 = new HBox(rectangle3, categoryLabel, categoryPick, blanks, guessLabel, guess);
+		blanks = "";
+
+		for (int i = 0; i < clientConnection.gameState.lengthOfWord; i++) {
+			blanks += "-";
+		}
+
+		System.out.println("Length of word: " + clientConnection.gameState.lengthOfWord);
+		System.out.println(blanks);
+
+		Label word = new Label(blanks);
+		word.setFont(Font.font("Courier", 30));
+
+		guessSend.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				Alert lengthAlert = new Alert(Alert.AlertType.ERROR);
+				lengthAlert.setTitle("Error!");
+				lengthAlert.setHeaderText("Guess Length Error");
+				lengthAlert.setContentText("You must guess one letter!");
+
+				if ((guess.getText().length() > 1) || (guess.getText().isEmpty())){
+					lengthAlert.showAndWait();
+				}
+				else {
+					WordInfo newInfo = new WordInfo();
+					newInfo.letterGuess = guess.getText().charAt(0);
+
+					clientConnection.send(newInfo);
+
+//					info.letterGuess = guess.getText().charAt(0);
+					guess.clear();
+
+					System.out.println("Client guessed: " + info.letterGuess);
+
+					if (clientConnection.gameState.charInWord) { // letter guessed is in word!
+						System.out.println("Letter is in word!");
+
+						ArrayList<Integer> positions = clientConnection.gameState.letterPositions;
+
+						for (int i = 0; i < positions.size(); i++) {
+							StringBuilder blankWord = new StringBuilder(blanks);
+							System.out.println("positions: " + positions.get(i));
+							blankWord.setCharAt(positions.get(i), newInfo.letterGuess);
+							blanks = blankWord.toString();
+						}
+
+						int blankCount = 0;
+
+						for (int i = 0; i < blanks.length(); i++) {
+							if (blanks.charAt(i) == '-') {
+								blankCount++;
+							}
+						}
+
+						if (blankCount == 0) { // client guessed the whole word!
+							Alert winAlert = new Alert(Alert.AlertType.CONFIRMATION);
+							winAlert.setTitle("Congrats!");
+							winAlert.setHeaderText("Congratulations");
+							winAlert.setContentText("You guessed the whole word!");
+
+							guess.setDisable(true);
+							guessSend.setDisable(true);
+
+							backButton.setDisable(false);
+
+							winAlert.showAndWait();
+
+						}
+
+						word.setText(blanks);
+
+						System.out.println(blanks);
+
+						System.out.println("finished here!");
+
+					}
+					else  { // letter is not in word
+
+						info.numGuesses++;
+
+						System.out.println("Client has made " + info.numGuesses + " guesses");
+
+						if (info.numGuesses == 1) {
+							System.out.println("Got here!");
+							guessHeart6.setVisible(false);
+						}
+						else if (info.numGuesses == 2) {
+							guessHeart6.setVisible(false);
+							guessHeart5.setVisible(false);
+						}
+						else if (info.numGuesses == 3) {
+							guessHeart6.setVisible(false);
+							guessHeart5.setVisible(false);
+							guessHeart4.setVisible(false);
+						}
+						else if (info.numGuesses == 4) {
+							guessHeart6.setVisible(false);
+							guessHeart5.setVisible(false);
+							guessHeart4.setVisible(false);
+							guessHeart3.setVisible(false);
+						}
+						else if (info.numGuesses == 5) {
+							guessHeart6.setVisible(false);
+							guessHeart5.setVisible(false);
+							guessHeart4.setVisible(false);
+							guessHeart3.setVisible(false);
+							guessHeart2.setVisible(false);
+						}
+						else if (info.numGuesses == 6) {
+							guessHeart6.setVisible(false);
+							guessHeart5.setVisible(false);
+							guessHeart4.setVisible(false);
+							guessHeart3.setVisible(false);
+							guessHeart2.setVisible(false);
+							guessHeart1.setVisible(false);
+
+							// all guesses have been used up!
+
+							Alert loseAlert = new Alert(Alert.AlertType.ERROR);
+							loseAlert.setTitle("Oh no!");
+							loseAlert.setHeaderText("You lose...");
+							loseAlert.setContentText("All 6 guesses have been used...");
+
+							backButton.setDisable(false);
+
+							guess.setDisable(true);
+							guessSend.setDisable(true);
+							loseAlert.showAndWait();
+
+						}
+					}
+				}
+			}
+		});
+
+		backButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				showScene2();
+			}
+		});
+
+		HBox rectangle = new HBox(blanksRectangle);
+
+		HBox box3 = new HBox(rectangle3, categoryLabel, categoryPick, rectangle, guessLabel, guess, guessSend, numGuesses, guessHeart1, guessHeart2, guessHeart3, guessHeart4, guessHeart5, guessHeart6, word, backButton);
 		box3.setMargin(rectangle3, new Insets(100, 20, 10, 175));
 		box3.setMargin(categoryLabel, new Insets(150, 20, 10, -800));
 		box3.setMargin(categoryPick, new Insets(130, 20, 10, 0));
-		box3.setMargin(blanks, new Insets(200, 20, 10, -380));
+		box3.setMargin(rectangle, new Insets(200, 20, 10, -380));
 		box3.setMargin(guessLabel, new Insets(450, 20, 10, -700));
 		box3.setMargin(guess, new Insets(450, 20, 10, 0));
+		box3.setMargin(guessSend, new Insets(450, 20, 10, 10));
+		box3.setMargin(numGuesses, new Insets(40, 20, 10, -700));
+		box3.setMargin(guessHeart1, new Insets(30, 20, 10, 0));
+		box3.setMargin(guessHeart2, new Insets(30, 20, 10, -10));
+		box3.setMargin(guessHeart3, new Insets(30, 20, 10, -10));
+		box3.setMargin(guessHeart4, new Insets(30, 20, 10, -10));
+		box3.setMargin(guessHeart5, new Insets(30, 20, 10, -10));
+		box3.setMargin(guessHeart6, new Insets(30, 20, 10, -10));
+		box3.setMargin(word, new Insets(300, 20, 10, -250));
+		box3.setMargin(backButton, new Insets(300, 20, 10, 400));
 
 		HBox mainBox3 = new HBox(box3);
 		mainBox3.setBackground(background);
@@ -515,6 +728,10 @@ public class WordGuessClient extends Application {
 		return scene3;
 
 		// ----------------------------------------------------------------------------------------------------------
+	}
+
+	public void showScene2() {
+
 	}
 
 }
