@@ -195,7 +195,7 @@ public class WordGuessClient extends Application {
 
 		beachActivities = new Button("Beach Activities");
 		beachActivities.setFont(Font.font("DJB Scruffy Angel", 20));
-		beachActivities.setStyle("-fx-text-fill: green");
+		beachActivities.setStyle("-fx-text-fill: red");
 
 		iceCreamFlavors = new Button("Ice Cream Flavors");
 		iceCreamFlavors.setFont(Font.font("DJB Scruffy Angel", 20));
@@ -238,6 +238,12 @@ public class WordGuessClient extends Application {
 				primaryStage.setTitle("(Client) Beach Activities");
 				primaryStage.setScene(showScene3());
 				primaryStage.show();
+				
+				//disable category button once player already got a word correct from that category
+				if (gameData.category1WordsCorrect == 1) {
+					beachActivities.setStyle("-fx-background-color: green");
+					beachActivities.setDisable(true);
+				}
 			}
 		});
 		
@@ -274,6 +280,12 @@ public class WordGuessClient extends Application {
 				primaryStage.setTitle("(Client) Ice Cream Flavors");
 				primaryStage.setScene(showScene3());
 				primaryStage.show();
+				
+				//disable category button once player already got a word correct from that category
+				if (gameData.category2WordsCorrect == 1) {
+					iceCreamFlavors.setStyle("-fx-background-color: green");
+					iceCreamFlavors.setDisable(true);
+				}
 			}
 		});
 
@@ -310,6 +322,12 @@ public class WordGuessClient extends Application {
 				primaryStage.setTitle("(Client) Outdoor Sports");
 				primaryStage.setScene(showScene3());
 				primaryStage.show();
+				
+				//disable category button once player already got a word correct from that category
+				if (gameData.category3WordsCorrect == 1) {
+					outdoorSports.setStyle("-fx-background-color: green");
+					outdoorSports.setDisable(true);
+				}
 			}
 		});
 		
@@ -373,15 +391,15 @@ public class WordGuessClient extends Application {
 				
 				gameData = new GameLogicClient();
 				
-				beachActivitiesHeart1.setDisable(false);
-				beachActivitiesHeart2.setDisable(false);
-				beachActivitiesHeart3.setDisable(false);
-				iceCreamFlavorsHeart1.setDisable(false);
-				iceCreamFlavorsHeart2.setDisable(false);
-				iceCreamFlavorsHeart3.setDisable(false);
-				outdoorSportsHeart1.setDisable(false);
-				outdoorSportsHeart2.setDisable(false);
-				outdoorSportsHeart3.setDisable(false);
+				beachActivitiesHeart1.setVisible(true);
+				beachActivitiesHeart2.setVisible(true);
+				beachActivitiesHeart3.setVisible(true);
+				iceCreamFlavorsHeart1.setVisible(true);
+				iceCreamFlavorsHeart2.setVisible(true);
+				iceCreamFlavorsHeart3.setVisible(true);
+				outdoorSportsHeart1.setVisible(true);
+				outdoorSportsHeart2.setVisible(true);
+				outdoorSportsHeart3.setVisible(true);
 
 			}
 		});
