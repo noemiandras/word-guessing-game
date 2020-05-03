@@ -55,11 +55,17 @@ public class GameLogic {
 				
 		int i = 0;
 		while(currentWord.indexOf(letter, i) != -1) {
+			
+			//get index that was evaluated 
+			i = currentWord.indexOf(letter, i);
+			
 			//add index where the letter is
 			pos.add(i);
 			countLetter++;
-			//increment index to search for the rest of letters 
-		   i = currentWord.indexOf(letter, i) + 1;
+			
+			//increment index
+			i++;
+			
 		}
 		
 		//letter is not in the word
