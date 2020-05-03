@@ -47,6 +47,8 @@ import javax.swing.*;
 
 import java.awt.*;
 
+import static javafx.scene.layout.VBox.setMargin;
+
 public class WordGuessClient extends Application {
 
 	public static void main(String[] args) {
@@ -56,6 +58,7 @@ public class WordGuessClient extends Application {
 
 	Client clientConnection;
 	GameLogicClient gameData;
+	WordInfo info;
 	
 	ListView<String> gameMessages;
 
@@ -207,7 +210,7 @@ public class WordGuessClient extends Application {
 			public void handle(ActionEvent event) {
 				
 				//sends category request to server
-				WordInfo info = new WordInfo();
+				info = new WordInfo();
 				info.category = 1;
 				info.message = "Beach Activities Category picked!";
 				clientConnection.send(info);
@@ -232,6 +235,9 @@ public class WordGuessClient extends Application {
 				}
 				
 				//--------change to scene 3------
+				primaryStage.setTitle("(Client) Beach Activities");
+				primaryStage.setScene(showScene3());
+				primaryStage.show();
 			}
 		});
 		
@@ -240,7 +246,7 @@ public class WordGuessClient extends Application {
 			public void handle(ActionEvent event) {
 				
 				//sends category request to server
-				WordInfo info = new WordInfo();
+				info = new WordInfo();
 				info.category = 2;
 				info.message = "Ice Cream Category picked!";
 				clientConnection.send(info);
@@ -265,6 +271,9 @@ public class WordGuessClient extends Application {
 				}
 				
 				//--------change to scene 3------
+				primaryStage.setTitle("(Client) Ice Cream Flavors");
+				primaryStage.setScene(showScene3());
+				primaryStage.show();
 			}
 		});
 
@@ -273,7 +282,7 @@ public class WordGuessClient extends Application {
 			public void handle(ActionEvent event) {
 				
 				//sends category request to server
-				WordInfo info = new WordInfo();
+				info = new WordInfo();
 				info.category = 3;
 				info.message = "Sports Category picked!";
 				clientConnection.send(info);
@@ -298,7 +307,9 @@ public class WordGuessClient extends Application {
 				}
 				
 				//--------change to scene 3------
-				
+				primaryStage.setTitle("(Client) Outdoor Sports");
+				primaryStage.setScene(showScene3());
+				primaryStage.show();
 			}
 		});
 		
@@ -359,6 +370,18 @@ public class WordGuessClient extends Application {
 				primaryStage.setTitle("(Client) Make your Selection!");
 				primaryStage.setScene(scene2);
 				primaryStage.show();
+				
+				gameData = new GameLogicClient();
+				
+				beachActivitiesHeart1.setDisable(false);
+				beachActivitiesHeart2.setDisable(false);
+				beachActivitiesHeart3.setDisable(false);
+				iceCreamFlavorsHeart1.setDisable(false);
+				iceCreamFlavorsHeart2.setDisable(false);
+				iceCreamFlavorsHeart3.setDisable(false);
+				outdoorSportsHeart1.setDisable(false);
+				outdoorSportsHeart2.setDisable(false);
+				outdoorSportsHeart3.setDisable(false);
 
 			}
 		});
@@ -366,8 +389,10 @@ public class WordGuessClient extends Application {
 		quit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Stage stage = (Stage) quit.getScene().getWindow();
-    			stage.close();
+				//Stage stage = (Stage) quit.getScene().getWindow();
+    			//stage.close();
+				Platform.exit();
+				System.exit(0);
 			}
 		});
 		
@@ -415,6 +440,63 @@ public class WordGuessClient extends Application {
 		finalScene = new Scene(endDisplayBox, 1200, 900);
 		
 		return finalScene;
+	}
+	
+	public Scene showScene3() {
+		// ------- SCENE 3 ------------------------------------------------------------------------------------------
+
+		Rectangle rectangle3 = new Rectangle(900, 500);
+		rectangle3.setFill(Color.BEIGE);
+		rectangle3.setStroke(Color.ORANGE);
+
+		String clientCategory = "";
+
+		if (info.category == 1) {
+			clientCategory = "Beach Activities";
+		}
+		else if (info.category == 2) {
+			clientCategory = "Ice Cream Flavors";
+		}
+		else if (info.category == 3) {
+			clientCategory = "Outdoor Sports";
+		}
+
+		Label categoryLabel = new Label("Category: ");
+		categoryLabel.setFont(Font.font("Courier", 20));
+
+		Label categoryPick = new Label(clientCategory);
+		categoryPick.setFont(Font.font("DJB Scruffy Angel", 20));
+		categoryPick.setTextFill(Color.GREEN);
+
+		Rectangle blanksRectangle = new Rectangle(700, 200);
+		blanksRectangle.setFill(Color.WHITE);
+		blanksRectangle.setStroke(Color.LIGHTCORAL);
+
+		Label guessLabel = new Label("Input your guess: ");
+		guessLabel.setFont(Font.font("Courier", 20));
+
+		TextField guess = new TextField("Enter your one-letter guess");
+		guess.setPrefWidth(400);
+		guess.setFont(Font.font("DJB Scruffy Angel", 20));
+
+		HBox blanks = new HBox(blanksRectangle);
+
+		HBox box3 = new HBox(rectangle3, categoryLabel, categoryPick, blanks, guessLabel, guess);
+		box3.setMargin(rectangle3, new Insets(100, 20, 10, 175));
+		box3.setMargin(categoryLabel, new Insets(150, 20, 10, -800));
+		box3.setMargin(categoryPick, new Insets(130, 20, 10, 0));
+		box3.setMargin(blanks, new Insets(200, 20, 10, -380));
+		box3.setMargin(guessLabel, new Insets(450, 20, 10, -700));
+		box3.setMargin(guess, new Insets(450, 20, 10, 0));
+
+		HBox mainBox3 = new HBox(box3);
+		mainBox3.setBackground(background);
+
+		Scene scene3 = new Scene(mainBox3, 1200, 900);
+
+		return scene3;
+
+		// ----------------------------------------------------------------------------------------------------------
 	}
 
 }
