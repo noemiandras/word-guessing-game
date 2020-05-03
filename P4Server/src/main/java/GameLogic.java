@@ -69,9 +69,15 @@ public class GameLogic {
 		}
 		
 		//letter is not in the word
-		if( i == 0) {
+		if(i == 0) {
 			numLoss--;
 		}
+		/*
+		String lttr = String.valueOf(letter)
+		if(currentWord.contains(lttr) == false) {
+			numLoss--;
+		}
+		*/
 
 		return pos;
 	}
