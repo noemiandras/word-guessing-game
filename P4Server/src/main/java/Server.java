@@ -135,6 +135,7 @@ public class Server{
 			
 			info.letterPositions = position;
 			info.numGuesses = logic.numLoss;
+			info.lengthOfWord = logic.getNumLettersInWord(); //or do logic.currentWord.length()
 			
 			send(info);
 		}
