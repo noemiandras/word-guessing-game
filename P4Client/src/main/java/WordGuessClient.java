@@ -35,6 +35,7 @@ import javafx.scene.shape.Rectangle;
 import java.awt.*;
 import java.lang.Object;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -585,6 +586,15 @@ public class WordGuessClient extends Application {
 
 //					info.letterGuess = guess.getText().charAt(0);
 					guess.clear();
+					
+					//----------------------noemi
+					try {
+						TimeUnit.SECONDS.sleep(1);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//-------------------------
 
 					System.out.println("Client guessed: " + newInfo.letterGuess);
 
