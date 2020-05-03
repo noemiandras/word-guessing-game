@@ -200,7 +200,7 @@ public class WordGuessClient extends Application {
 
 		beachActivities = new Button("Beach Activities");
 		beachActivities.setFont(Font.font("DJB Scruffy Angel", 20));
-		beachActivities.setStyle("-fx-text-fill: red");
+		beachActivities.setStyle("-fx-text-fill: green");
 
 		iceCreamFlavors = new Button("Ice Cream Flavors");
 		iceCreamFlavors.setFont(Font.font("DJB Scruffy Angel", 20));
@@ -246,11 +246,13 @@ public class WordGuessClient extends Application {
 				primaryStage.setScene(showScene3());
 				primaryStage.show();
 				
+				/*
 				//disable category button once player already got a word correct from that category
 				if (gameData.category1WordsCorrect == 1) {
 					beachActivities.setStyle("-fx-background-color: green");
 					beachActivities.setDisable(true);
 				}
+				*/
 				
 			}
 		});
@@ -291,11 +293,13 @@ public class WordGuessClient extends Application {
 				primaryStage.setScene(showScene3());
 				primaryStage.show();
 				
+				/*
 				//disable category button once player already got a word correct from that category
 				if (gameData.category2WordsCorrect == 1) {
 					iceCreamFlavors.setStyle("-fx-background-color: green");
 					iceCreamFlavors.setDisable(true);
 				}
+				*/
 				
 			}
 		});
@@ -336,11 +340,13 @@ public class WordGuessClient extends Application {
 				primaryStage.setScene(showScene3());
 				primaryStage.show();
 				
+				/*
 				//disable category button once player already got a word correct from that category
 				if (gameData.category3WordsCorrect == 1) {
 					outdoorSports.setStyle("-fx-background-color: green");
 					outdoorSports.setDisable(true);
 				}
+				*/
 				
 			}
 		});
@@ -580,7 +586,7 @@ public class WordGuessClient extends Application {
 //					info.letterGuess = guess.getText().charAt(0);
 					guess.clear();
 
-					System.out.println("Client guessed: " + info.letterGuess);
+					System.out.println("Client guessed: " + newInfo.letterGuess);
 
 					if (clientConnection.gameState.charInWord) { // letter guessed is in word!
 						System.out.println("Letter is in word!");
@@ -607,6 +613,25 @@ public class WordGuessClient extends Application {
 							winAlert.setTitle("Congrats!");
 							winAlert.setHeaderText("Congratulations");
 							winAlert.setContentText("You guessed the whole word!");
+							
+							if (info.category == 1) {
+								gameData.category1WordAttempts++;
+								gameData.category1WordsCorrect++;
+								beachActivities.setStyle("-fx-background-color: green");
+								beachActivities.setDisable(true);
+							}
+							else if (info.category == 2) {
+								gameData.category2WordAttempts++;
+								gameData.category2WordsCorrect++;
+								iceCreamFlavors.setStyle("-fx-background-color: green");
+								iceCreamFlavors.setDisable(true);
+							}
+							else {
+								gameData.category3WordAttempts++;
+								gameData.category3WordsCorrect++;
+								outdoorSports.setStyle("-fx-background-color: green");
+								outdoorSports.setDisable(true);
+							}
 
 							guess.setDisable(true);
 							guessSend.setDisable(true);
@@ -670,6 +695,16 @@ public class WordGuessClient extends Application {
 							loseAlert.setTitle("Oh no!");
 							loseAlert.setHeaderText("You lose...");
 							loseAlert.setContentText("All 6 guesses have been used...");
+							
+							if (info.category == 1) {
+								gameData.category1WordAttempts++;
+							}
+							else if (info.category == 2) {
+								gameData.category2WordAttempts++;
+							}
+							else {
+								gameData.category3WordAttempts++;
+							}
 
 							backButton.setDisable(false);
 
