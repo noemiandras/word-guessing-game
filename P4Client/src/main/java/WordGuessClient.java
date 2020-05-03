@@ -82,6 +82,7 @@ public class WordGuessClient extends Application {
 	
 	Button playAgain = new Button("Play Again");
 	Button quit = new Button("Quit");
+	Button backButton = new Button("Back");
 	
 	String blanks;
 	
@@ -89,15 +90,11 @@ public class WordGuessClient extends Application {
 	Scene scene2;
 	Scene finalScene;
 	
-	boolean showScene2;
-
 	//feel free to remove the starter code from this method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("(Client) Word Guess!!!");
-		
-		showScene2 = false;
 
 		ImageView beachActivitiesHeart1 = new ImageView(new Image("heartSmall.png"));
 		ImageView beachActivitiesHeart2 = new ImageView(new Image("heartSmall.png"));
@@ -255,11 +252,6 @@ public class WordGuessClient extends Application {
 					beachActivities.setDisable(true);
 				}
 				
-				if (showScene2) {
-					primaryStage.setTitle("(Client) Make your Selection!");
-					primaryStage.setScene(scene2);
-					primaryStage.show();
-				}
 			}
 		});
 		
@@ -305,11 +297,6 @@ public class WordGuessClient extends Application {
 					iceCreamFlavors.setDisable(true);
 				}
 				
-				if (showScene2) {
-					primaryStage.setTitle("(Client) Make your Selection!");
-					primaryStage.setScene(scene2);
-					primaryStage.show();
-				}
 			}
 		});
 
@@ -355,11 +342,6 @@ public class WordGuessClient extends Application {
 					outdoorSports.setDisable(true);
 				}
 				
-				if (showScene2) {
-					primaryStage.setTitle("(Client) Make your Selection!");
-					primaryStage.setScene(scene2);
-					primaryStage.show();
-				}
 			}
 		});
 		
@@ -450,6 +432,15 @@ public class WordGuessClient extends Application {
 			}
 		});
 		
+		backButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.setTitle("(Client) Make your Selection!");
+				primaryStage.setScene(scene2);
+				primaryStage.show();
+			}
+		});
+		
 		primaryStage.setScene(scene1);
 		primaryStage.show();
 	}
@@ -532,7 +523,6 @@ public class WordGuessClient extends Application {
 			clientCategory = "Outdoor Sports";
 		}
 
-		Button backButton = new Button("Back");
 		backButton.setFont(Font.font("Courier", 20));
 		backButton.setDisable(true);
 
@@ -693,13 +683,6 @@ public class WordGuessClient extends Application {
 			}
 		});
 
-		backButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				showScene2();
-			}
-		});
-
 		HBox rectangle = new HBox(blanksRectangle);
 
 		HBox box3 = new HBox(rectangle3, categoryLabel, categoryPick, rectangle, guessLabel, guess, guessSend, numGuesses, guessHeart1, guessHeart2, guessHeart3, guessHeart4, guessHeart5, guessHeart6, word, backButton);
@@ -730,8 +713,5 @@ public class WordGuessClient extends Application {
 		// ----------------------------------------------------------------------------------------------------------
 	}
 
-	public void showScene2() {
-
-	}
 
 }
