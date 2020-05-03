@@ -100,7 +100,7 @@ public class Server{
 		 */
 		private void startNewWord(int category) {
 						
-			logic.reset();
+			logic.resetRound();
 			logic.pickWord(category);
 			
 			info = new WordInfo();
@@ -139,6 +139,13 @@ public class Server{
 			send(info);
 		}
 		
+		/*
+		 * Method: starts new game with all variables reset
+		 */
+		public void startNewGame() {
+			//logic = new GameLogic();
+		}
+		
 		public void run(){
 				
 			try {
@@ -168,6 +175,8 @@ public class Server{
 				    		//client chose a new category
 				    		startNewWord(data.category);
 				    	}
+				    	
+				    	//need an if statement for checking if the client wants to start a new game 
 				    	
 				    }
 					

@@ -111,14 +111,21 @@ public class GameLogic {
 	/*
 	 * Method: resets all variables to be ready for a new word round
 	 */
-	public void reset() {
+	public void resetRound() {
 		currentCategory = 0;
 		numLoss = 6;
 		countLetter = 0;
 		
 		lettersPlayed.clear();
 		currentWord = "";
-		
+	}
+	
+	/*
+	 * Method: resets logic class entirely
+	 *        NEEDED ONLY IF GAMELOGIC INSTANCE IS KEPT THE SAME IN SERVER CLASS
+	 */
+	public void resetGame() {
+		resetRound();
 		wordsPlayed.clear();
 	}
 	
