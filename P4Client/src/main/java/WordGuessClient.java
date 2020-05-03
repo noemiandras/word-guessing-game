@@ -200,15 +200,16 @@ public class WordGuessClient extends Application {
 		generalCategory.setFont(Font.font("Courier", 50));
 
 		beachActivities = new Button("Beach Activities");
-		beachActivities.setFont(Font.font("DJB Scruffy Angel", 20));
+		beachActivities.setFont(Font.font("Times New Roman", 20));
 		beachActivities.setStyle("-fx-text-fill: red");
 
 		iceCreamFlavors = new Button("Ice Cream Flavors");
-		iceCreamFlavors.setFont(Font.font("DJB Scruffy Angel", 20));
+		iceCreamFlavors.setFont(Font.font("Times New Roman", 20));
 		iceCreamFlavors.setStyle("-fx-text-fill: blue");
 
 		outdoorSports = new Button("Outdoor Sports");
-		outdoorSports.setFont(Font.font("DJB Scruffy Angel", 20));
+		outdoorSports.setFont(Font.font("Times New Roman" +
+				"", 20));
 		outdoorSports.setStyle("-fx-text-fill: purple");
 
 		beachActivities.setOnAction(new EventHandler<ActionEvent>() {
@@ -450,7 +451,7 @@ public class WordGuessClient extends Application {
 
 		Text resultMessage = new Text();
 
-		resultMessage.setFont(Font.font("DJB Scruffy Angel", FontWeight.BOLD, FontPosture.REGULAR, 50));
+		resultMessage.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 50));
 		resultMessage.setStyle("-fx-fill: blue; -fx-padding: 50 0 0 0;");
 
 		if (gameData.didWin()) {
@@ -461,12 +462,12 @@ public class WordGuessClient extends Application {
 		}
 
 		//playAgain = new Button("Play Again");
-		playAgain.setFont(Font.font("DJB Scruffy Angel", 20));
+		playAgain.setFont(Font.font("Times New Roman", 20));
 		playAgain.setStyle("-fx-text-fill: blue");
 		playAgain.setMinSize(150, 100);
 
 		//quit = new Button("Quit");
-		quit.setFont(Font.font("DJB Scruffy Angel", 20));
+		quit.setFont(Font.font("Times New Roman", 20));
 		quit.setStyle("-fx-text-fill: blue");
 		quit.setMinSize(150, 100);
 
@@ -531,7 +532,7 @@ public class WordGuessClient extends Application {
 		categoryLabel.setFont(Font.font("Courier", 20));
 
 		Label categoryPick = new Label(clientCategory);
-		categoryPick.setFont(Font.font("DJB Scruffy Angel", 20));
+		categoryPick.setFont(Font.font("Times New Roman", 20));
 		categoryPick.setTextFill(Color.GREEN);
 
 		Rectangle blanksRectangle = new Rectangle(700, 200);
@@ -543,10 +544,10 @@ public class WordGuessClient extends Application {
 
 		TextField guess = new TextField();
 		guess.setPrefWidth(100);
-		guess.setFont(Font.font("DJB Scruffy Angel", 20));
+		guess.setFont(Font.font("Times New Roman", 20));
 
 		Button guessSend = new Button("Send");
-		guessSend.setFont(Font.font("DJB Scruffy Angel", 20));
+		guessSend.setFont(Font.font("Times New Roman", 20));
 
 		blanks = "";
 
