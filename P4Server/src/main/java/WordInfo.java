@@ -16,6 +16,7 @@ public class WordInfo implements Serializable {
     int numGuesses;
     
     String message;
+    boolean startNewGame;
 	
     WordInfo() {
     	category = -1;
@@ -25,6 +26,7 @@ public class WordInfo implements Serializable {
     	letterPositions = new ArrayList<Integer>();
         numGuesses = 0;
         message = "";
+        startNewGame = false;
     }
     
 }
