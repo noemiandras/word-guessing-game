@@ -60,9 +60,9 @@ public class WordGuessClient extends Application {
 	Client clientConnection;
 	GameLogicClient gameData;
 	WordInfo info;
-	
+
 	int lengthOfWord = 0;
-	
+
 	ListView<String> gameMessages;
 
 	String clientIP;
@@ -78,37 +78,56 @@ public class WordGuessClient extends Application {
 	Button beachActivities;
 	Button iceCreamFlavors;
 	Button outdoorSports;
-	
+
 	Background background;
-	
+
 	Button playAgain = new Button("Play Again");
 	Button quit = new Button("Quit");
 	Button backButton = new Button("Back");
-	
+	Button nextButton;
+
 	String blanks;
-	
+
+	int category1Lost = 0;
+	int category2Lost = 0;
+	int category3Lost = 0;
+
+	ImageView beachActivitiesHeart1;
+	ImageView beachActivitiesHeart2;
+	ImageView beachActivitiesHeart3;
+
+	ImageView iceCreamFlavorsHeart1;
+	ImageView iceCreamFlavorsHeart2;
+	ImageView iceCreamFlavorsHeart3;
+
+	ImageView outdoorSportsHeart1;
+	ImageView outdoorSportsHeart2;
+	ImageView outdoorSportsHeart3;
+
+
+
 	Scene scene1;
 	Scene scene2;
 	Scene finalScene;
-	
+
 	//feel free to remove the starter code from this method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("(Client) Word Guess!!!");
 
-		ImageView beachActivitiesHeart1 = new ImageView(new Image("heartSmall.png"));
-		ImageView beachActivitiesHeart2 = new ImageView(new Image("heartSmall.png"));
-		ImageView beachActivitiesHeart3 = new ImageView(new Image("heartSmall.png"));
-		
-		ImageView iceCreamFlavorsHeart1 = new ImageView(new Image("heartSmall.png"));
-		ImageView iceCreamFlavorsHeart2 = new ImageView(new Image("heartSmall.png"));
-		ImageView iceCreamFlavorsHeart3 = new ImageView(new Image("heartSmall.png"));
-		
-		ImageView outdoorSportsHeart1 = new ImageView(new Image("heartSmall.png"));
-		ImageView outdoorSportsHeart2 = new ImageView(new Image("heartSmall.png"));
-		ImageView outdoorSportsHeart3 = new ImageView(new Image("heartSmall.png"));
-		
+		beachActivitiesHeart1 = new ImageView(new Image("heartSmall.png"));
+		beachActivitiesHeart2 = new ImageView(new Image("heartSmall.png"));
+		beachActivitiesHeart3 = new ImageView(new Image("heartSmall.png"));
+
+		iceCreamFlavorsHeart1 = new ImageView(new Image("heartSmall.png"));
+		iceCreamFlavorsHeart2 = new ImageView(new Image("heartSmall.png"));
+		iceCreamFlavorsHeart3 = new ImageView(new Image("heartSmall.png"));
+
+		outdoorSportsHeart1 = new ImageView(new Image("heartSmall.png"));
+		outdoorSportsHeart2 = new ImageView(new Image("heartSmall.png"));
+		outdoorSportsHeart3 = new ImageView(new Image("heartSmall.png"));
+
 		Image bgimage = new Image("background.jpg");
 		BackgroundImage backgroundimage = new BackgroundImage(bgimage,
 				BackgroundRepeat.NO_REPEAT,
@@ -119,7 +138,7 @@ public class WordGuessClient extends Application {
 
 		AudioClip bgSound = new AudioClip(this.getClass().getResource("music.mp3").toExternalForm());
 		bgSound.play();
-		
+
 		gameData = new GameLogicClient();
 		gameMessages = new ListView<String>();
 
@@ -146,6 +165,10 @@ public class WordGuessClient extends Application {
 		startButton = new Button("Start");
 		startButton.setFont(Font.font("Courier"));
 		startButton.setDisable(true);
+
+		nextButton = new Button("Next");
+		nextButton.setFont(Font.font("Courier", 20));
+		nextButton.setDisable(true);
 
 		ipText.setOnKeyPressed(new EventHandler<KeyEvent>()  {
 			public void handle(KeyEvent keyEvent)
@@ -200,16 +223,15 @@ public class WordGuessClient extends Application {
 		generalCategory.setFont(Font.font("Courier", 50));
 
 		beachActivities = new Button("Beach Activities");
-		beachActivities.setFont(Font.font("Times New Roman", 20));
-		beachActivities.setStyle("-fx-text-fill: red");
+		beachActivities.setFont(Font.font("DJB Scruffy Angel", 20));
+		beachActivities.setStyle("-fx-text-fill: green");
 
 		iceCreamFlavors = new Button("Ice Cream Flavors");
-		iceCreamFlavors.setFont(Font.font("Times New Roman", 20));
+		iceCreamFlavors.setFont(Font.font("DJB Scruffy Angel", 20));
 		iceCreamFlavors.setStyle("-fx-text-fill: blue");
 
 		outdoorSports = new Button("Outdoor Sports");
-		outdoorSports.setFont(Font.font("Times New Roman" +
-				"", 20));
+		outdoorSports.setFont(Font.font("DJB Scruffy Angel", 20));
 		outdoorSports.setStyle("-fx-text-fill: purple");
 
 		beachActivities.setOnAction(new EventHandler<ActionEvent>() {
@@ -248,11 +270,13 @@ public class WordGuessClient extends Application {
 				primaryStage.setScene(showScene3());
 				primaryStage.show();
 
+				/*
 				//disable category button once player already got a word correct from that category
 				if (gameData.category1WordsCorrect == 1) {
 					beachActivities.setStyle("-fx-background-color: green");
 					beachActivities.setDisable(true);
 				}
+				*/
 
 			}
 		});
@@ -293,11 +317,13 @@ public class WordGuessClient extends Application {
 				primaryStage.setScene(showScene3());
 				primaryStage.show();
 
+				/*
 				//disable category button once player already got a word correct from that category
 				if (gameData.category2WordsCorrect == 1) {
 					iceCreamFlavors.setStyle("-fx-background-color: green");
 					iceCreamFlavors.setDisable(true);
 				}
+				*/
 
 			}
 		});
@@ -338,19 +364,20 @@ public class WordGuessClient extends Application {
 				primaryStage.setScene(showScene3());
 				primaryStage.show();
 
+				/*
 				//disable category button once player already got a word correct from that category
 				if (gameData.category3WordsCorrect == 1) {
 					outdoorSports.setStyle("-fx-background-color: green");
 					outdoorSports.setDisable(true);
 				}
+				*/
 
 			}
 		});
 
-
 		HBox box2 = new HBox(generalCategory, beachActivities, beachActivitiesHeart1, beachActivitiesHeart2, beachActivitiesHeart3,
 				iceCreamFlavors, iceCreamFlavorsHeart1, iceCreamFlavorsHeart2, iceCreamFlavorsHeart3,
-				outdoorSports, outdoorSportsHeart1, outdoorSportsHeart2, outdoorSportsHeart3);
+				outdoorSports, outdoorSportsHeart1, outdoorSportsHeart2, outdoorSportsHeart3, nextButton);
 
 		box2.setMargin(generalCategory, new Insets(100, 10, 10, 250));
 
@@ -369,6 +396,8 @@ public class WordGuessClient extends Application {
 		box2.setMargin(outdoorSportsHeart2, new Insets(550, 5, 10, 10));
 		box2.setMargin(outdoorSportsHeart3, new Insets(550, 10, 10, 10));
 
+		box2.setMargin(nextButton, new Insets(600, 10, 10, -100));
+
 		mainBox2 = new HBox(box2);
 		mainBox2.setBackground(background);
 
@@ -381,10 +410,10 @@ public class WordGuessClient extends Application {
 			public void handle(ActionEvent event) {
 
 				clientConnection = new Client(data->{
-					  Platform.runLater(()->{
-						  gameMessages.getItems().add(data.toString());
-					  });
-				  }, clientPort, clientIP);
+					Platform.runLater(()->{
+						gameMessages.getItems().add(data.toString());
+					});
+				}, clientPort, clientIP);
 
 				clientConnection.start();
 
@@ -417,6 +446,14 @@ public class WordGuessClient extends Application {
 				outdoorSportsHeart2.setVisible(true);
 				outdoorSportsHeart3.setVisible(true);
 
+				nextButton.setDisable(true);
+
+				beachActivities.setDisable(false);
+
+				iceCreamFlavors.setDisable(false);
+
+				outdoorSports.setDisable(false);
+
 				info.message = "Starting a New Game";
 				info.startNewGame = true;
 				clientConnection.send(info);
@@ -428,7 +465,7 @@ public class WordGuessClient extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				//Stage stage = (Stage) quit.getScene().getWindow();
-    			//stage.close();
+				//stage.close();
 				Platform.exit();
 				System.exit(0);
 			}
@@ -437,11 +474,26 @@ public class WordGuessClient extends Application {
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+
+				if ((gameData.category1WordsCorrect == 1) && (gameData.category2WordsCorrect == 1) && (gameData.category3WordsCorrect == 1)) {
+					nextButton.setDisable(false);
+				}
+
 				primaryStage.setTitle("(Client) Make your Selection!");
 				primaryStage.setScene(scene2);
 				primaryStage.show();
 			}
 		});
+
+		nextButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				primaryStage.setTitle("(Client) Play Again? or Quit?");
+				primaryStage.setScene(gameResultScreen());
+				primaryStage.show();
+			}
+		});
+
 
 		primaryStage.setScene(scene1);
 		primaryStage.show();
@@ -451,7 +503,7 @@ public class WordGuessClient extends Application {
 
 		Text resultMessage = new Text();
 
-		resultMessage.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 50));
+		resultMessage.setFont(Font.font("DJB Scruffy Angel", FontWeight.BOLD, FontPosture.REGULAR, 50));
 		resultMessage.setStyle("-fx-fill: blue; -fx-padding: 50 0 0 0;");
 
 		if (gameData.didWin()) {
@@ -462,12 +514,12 @@ public class WordGuessClient extends Application {
 		}
 
 		//playAgain = new Button("Play Again");
-		playAgain.setFont(Font.font("Times New Roman", 20));
+		playAgain.setFont(Font.font("DJB Scruffy Angel", 20));
 		playAgain.setStyle("-fx-text-fill: blue");
 		playAgain.setMinSize(150, 100);
 
 		//quit = new Button("Quit");
-		quit.setFont(Font.font("Times New Roman", 20));
+		quit.setFont(Font.font("DJB Scruffy Angel", 20));
 		quit.setStyle("-fx-text-fill: blue");
 		quit.setMinSize(150, 100);
 
@@ -532,7 +584,7 @@ public class WordGuessClient extends Application {
 		categoryLabel.setFont(Font.font("Courier", 20));
 
 		Label categoryPick = new Label(clientCategory);
-		categoryPick.setFont(Font.font("Times New Roman", 20));
+		categoryPick.setFont(Font.font("DJB Scruffy Angel", 20));
 		categoryPick.setTextFill(Color.GREEN);
 
 		Rectangle blanksRectangle = new Rectangle(700, 200);
@@ -544,10 +596,10 @@ public class WordGuessClient extends Application {
 
 		TextField guess = new TextField();
 		guess.setPrefWidth(100);
-		guess.setFont(Font.font("Times New Roman", 20));
+		guess.setFont(Font.font("DJB Scruffy Angel", 20));
 
 		Button guessSend = new Button("Send");
-		guessSend.setFont(Font.font("Times New Roman", 20));
+		guessSend.setFont(Font.font("DJB Scruffy Angel", 20));
 
 		blanks = "";
 
@@ -591,7 +643,7 @@ public class WordGuessClient extends Application {
 					}
 					//-------------------------
 
-					System.out.println("Client guessed: " + info.letterGuess);
+					System.out.println("Client guessed: " + newInfo.letterGuess);
 
 					if (clientConnection.gameState.charInWord) { // letter guessed is in word!
 						System.out.println("Letter is in word!");
@@ -618,6 +670,22 @@ public class WordGuessClient extends Application {
 							winAlert.setTitle("Congrats!");
 							winAlert.setHeaderText("Congratulations");
 							winAlert.setContentText("You guessed the whole word!");
+
+							if (info.category == 1) {
+								gameData.category1WordAttempts++;
+								gameData.category1WordsCorrect++;
+								beachActivities.setDisable(true);
+							}
+							else if (info.category == 2) {
+								gameData.category2WordAttempts++;
+								gameData.category2WordsCorrect++;
+								iceCreamFlavors.setDisable(true);
+							}
+							else {
+								gameData.category3WordAttempts++;
+								gameData.category3WordsCorrect++;
+								outdoorSports.setDisable(true);
+							}
 
 							guess.setDisable(true);
 							guessSend.setDisable(true);
@@ -681,6 +749,48 @@ public class WordGuessClient extends Application {
 							loseAlert.setTitle("Oh no!");
 							loseAlert.setHeaderText("You lose...");
 							loseAlert.setContentText("All 6 guesses have been used...");
+
+							if (info.category == 1) {
+								gameData.category1WordAttempts++;
+								category1Lost++;
+							}
+							else if (info.category == 2) {
+								gameData.category2WordAttempts++;
+								category2Lost++;
+							}
+							else {
+								gameData.category3WordAttempts++;
+								category3Lost++;
+							}
+
+							System.out.println("#1 attempts: " + category1Lost);
+							System.out.println("#2 attempts: " + category2Lost);
+							System.out.println("#3 attempts: " + category3Lost);
+
+							if ((category1Lost >= 3) || (category2Lost >= 3) || (category3Lost >= 3)) {
+
+								if (category1Lost >= 3) {
+									beachActivitiesHeart1.setVisible(false);
+									beachActivitiesHeart2.setVisible(false);
+									beachActivitiesHeart3.setVisible(false);
+								}
+								else if (category2Lost >= 3) {
+									iceCreamFlavorsHeart1.setVisible(false);
+									iceCreamFlavorsHeart2.setVisible(false);
+									iceCreamFlavorsHeart3.setVisible(false);
+								}
+								else {
+									outdoorSportsHeart1.setVisible(false);
+									outdoorSportsHeart2.setVisible(false);
+									outdoorSportsHeart3.setVisible(false);
+								}
+
+								beachActivities.setDisable(true);
+								iceCreamFlavors.setDisable(true);
+								outdoorSports.setDisable(true);
+								nextButton.setDisable(false);
+
+							}
 
 							backButton.setDisable(false);
 
