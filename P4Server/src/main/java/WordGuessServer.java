@@ -32,7 +32,7 @@ public class WordGuessServer extends Application {
 	VBox vBoxMenu;
 	HBox hBoxStartServer;
 	Button bStartServer;
-	
+
 	//server-client-socket related objects
 	Server serverConnection;
 	ListView<String> listItems; //this is where all the string server-client communication will happen
@@ -104,26 +104,14 @@ public class WordGuessServer extends Application {
 	public Scene CreateGameScene(Stage primaryStage, ListView listItems){
 		primaryStage.setTitle("Word Guess Server Screen");
 
-		Text stats = new Text("Client Statistics: ");
-		stats.setStyle("-fx-font: 14px 'Times New Roman'");
-		Text clientNumbers = new Text("Clients Connected: ");
-		clientNumbers.setStyle("-fx-font: 14px 'Times New Roman'");
-		//Text wins = new Text("Total wins: ");
-		//wins.setStyle("-fx-font: 14px 'Times New Roman'");
-		//Text losses = new Text("Total losses: ");
-		//losses.setStyle("-fx-font: 14px 'Times New Roman'");
-
 		BorderPane pane = new BorderPane();
 		pane.setPadding(new Insets(70));
 		pane.setStyle("-fx-font: 14px 'Times New Roman';" + "-fx-background-color: #ffe57c;");
 		//pane.setStyle("-fx-background-color: #ffe57c");
 
-		VBox Stats = new VBox(20, stats, clientNumbers);
-		Stats.setStyle("-fx-padding: 15;");
+		//HBox clientData = new HBox(20, clientNumbers, clients);
 
 		pane.setCenter(listItems);
-		pane.setRight(Stats);
-
 
 		pane.setPadding(new Insets(70));
 
